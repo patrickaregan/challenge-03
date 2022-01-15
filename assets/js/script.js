@@ -170,19 +170,20 @@ var passwordBucketIsValid = function() {
   // this function checks if the password bucket contains
   // at least one character from each character type selected
   // by the user and returns true if so.
+  console.log("Validate the password to ensure it contains at least one character from every character type selected.");
 
   // check for lowercase characters
   if (passwordCriteria.includeLowerCase) {
-    console.log("Check for lowercase characters.");
+    console.log("Check password for lowercase characters.");
     var counter = 0;
-    console.log("Counter before loop: " + counter);
+    //console.log("Counter before loop: " + counter);
     for (var i = 0; i < lowerCaseCharacters.length; i++) {
       if (passwordBucket.includes(lowerCaseCharacters[i])) {
         counter++;
       }
     }
     console.log("Password Bucket: " + passwordBucket);
-    console.log("Counter after loop: " + counter);
+    console.log("Lowercase characters: " + counter);
     if (counter < 1) {
       result = false;
     }
@@ -190,16 +191,16 @@ var passwordBucketIsValid = function() {
 
   // check for uppercase characters
   if (passwordCriteria.includeUpperCase) {
-    console.log("Check for uppercase characters.");
+    console.log("Check password for uppercase characters.");
     var counter = 0;
-    console.log("Counter before loop: " + counter);
+    //console.log("Counter before loop: " + counter);
     for (var i = 0; i < upperCaseCharacters.length; i++) {
       if (passwordBucket.includes(upperCaseCharacters[i])) {
         counter++;
       }
     }
     console.log("Password Bucket: " + passwordBucket);
-    console.log("Counter after loop: " + counter);
+    console.log("Uppercase characters: " + counter);
     if (counter < 1) {
       result = false;
     }
@@ -207,16 +208,16 @@ var passwordBucketIsValid = function() {
 
   // check for numeric characters
   if (passwordCriteria.includeNumbers) {
-    console.log("Check for numeric characters.");
+    console.log("Check password for numeric characters.");
     var counter = 0;
-    console.log("Counter before loop: " + counter);
+    //console.log("Counter before loop: " + counter);
     for (var i = 0; i < numericCharacters.length; i++) {
       if (passwordBucket.includes(numericCharacters[i])) {
         counter++;
       }
     }
     console.log("Password Bucket: " + passwordBucket);
-    console.log("Counter after loop: " + counter);
+    console.log("Numeric characters: " + counter);
     if (counter < 1) {
       result = false;
     }
@@ -224,16 +225,16 @@ var passwordBucketIsValid = function() {
 
   // check for special characters
   if (passwordCriteria.includeSpecialCharacters) {
-    console.log("Check for special characters.");
+    console.log("Check password for special characters.");
     var counter = 0;
-    console.log("Counter before loop: " + counter);
+    //console.log("Counter before loop: " + counter);
     for (var i = 0; i < specialCharacters.length; i++) {
       if (passwordBucket.includes(specialCharacters[i])) {
         counter++;
       }
     }
     console.log("Password Bucket: " + passwordBucket);
-    console.log("Counter after loop: " + counter);
+    console.log("Special characters: " + counter);
     if (counter < 1) {
       result = false;
     }
@@ -254,7 +255,10 @@ var buildPasswordBucket = function() {
   }
 
   // check if password bucket contains at least one character from each character type selected by the user
-  if (!passwordBucketIsValid()) {
+  if (passwordBucketIsValid()) {
+    console.log("The generated password is valid!");
+  } else {
+    console.log("The generated password is NOT valid. Try again!");
     passwordBucket = ['']; //reset the password bucket
     buildPasswordBucket();
   }
