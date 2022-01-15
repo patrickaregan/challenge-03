@@ -1,4 +1,5 @@
 // Assignment code here
+var characterBucket = ['']; // this is the bucket of characters to choose the password from and depends on the criteria selected by the user.
 
 // Object to hold password criteria
 var passwordCriteria = {
@@ -21,28 +22,28 @@ var getPasswordLength = function() {
 }
 
 // Prompt for Lower Case
-var includeLowerCase = function() {
+var getIncludeLowerCase = function() {
   var input = confirm("Question 2 of 5: Do you want to include lowercase characters? Click OK for Yes or Cancel for No.");
   passwordCriteria.includeLowerCase = input;
   console.log("Include Lowercase: " + passwordCriteria.includeLowerCase);
 }
 
 // Prompt for Upper Case
-var includeUpperCase = function() {
+var getIncludeUpperCase = function() {
   var input = confirm("Question 3 of 5: Do you want to include uppercase characters? Click OK for Yes or Cancel for No.");
   passwordCriteria.includeUpperCase = input;
   console.log("Include Uppercase: " + passwordCriteria.includeUpperCase);
 }
 
 // Prompt for Numeric Characters
-var includeNumbers = function() {
+var getIncludeNumbers = function() {
   var input = confirm("Question 4 of 5: Do you want to include numeric characters? Click OK for Yes or Cancel for No.");
   passwordCriteria.includeNumbers = input;
   console.log("Include Numeric Characters: " + passwordCriteria.includeNumbers);
 }
 
 // Prompt for Special Characters
-var includeSpecialCharacters = function() {
+var getIncludeSpecialCharacters = function() {
   var input = confirm("Question 5 of 5: Do you want to include special characters? Click OK for Yes or Cancel for No.");
   passwordCriteria.includeSpecialCharacters = input;
   console.log("Include Special Characters: " + passwordCriteria.includeSpecialCharacters);
@@ -82,20 +83,71 @@ var characterSelectionIsValid = function() {
   return result;
 }
 
+var buildCharacterBucket = function() {
+  // remove the empty element from the array
+  characterBucket.pop();
+
+  // character sets
+  var lowerCaseCharacters = ['a','b','c'];
+  var upperCaseCharacters = ['A','B','C'];
+  var numericCharacters = ['0','1','2'];
+  var specialCharacters = [' ','!','"','#'];
+
+  // add lowercase characters to the bucket if that option was chosen by the user.
+  if (passwordCriteria.includeLowerCase) {
+    for (var i = 0; i < lowerCaseCharacters.length; i++) {
+      characterBucket.push(lowerCaseCharacters[i]);
+    }
+  }
+
+  // add uppercase characters to the bucket if that option was chosen by the user.
+  if (passwordCriteria.includeUpperCase) {
+    for (var i = 0; i < upperCaseCharacters.length; i++) {
+      characterBucket.push(upperCaseCharacters[i]);
+    }
+  }
+
+  // add numeric characters to the bucket if that option was chosen by the user.
+  if (passwordCriteria.includeNumbers) {
+    for (var i = 0; i < numericCharacters.length; i++) {
+      characterBucket.push(numericCharacters[i]);
+    }
+  }
+
+  // add special characters to the bucket if that option was chosen by the user.
+  if (passwordCriteria.includeSpecialCharacters) {
+    for (var i = 0; i < specialCharacters.length; i++) {
+      characterBucket.push(specialCharacters[i]);
+    }
+  }
+  
+  console.log("Character Bucket: " + characterBucket);
+}
+
 var generatePassword = function() {
+  // this will be returned after we generate it.
+  var password = "Under Construction";
+
+  // Get password criteria
   getPasswordLength();
-  includeLowerCase();
-  includeUpperCase();
-  includeNumbers();
-  includeSpecialCharacters();
+  getIncludeLowerCase();
+  getIncludeUpperCase();
+  getIncludeNumbers();
+  getIncludeSpecialCharacters();
   if (characterSelectionIsValid()) {
     console.log("The character selection is valid!");
+    buildCharacterBucket();
   } else {
     console.log("The character selection is NOT valid!");
     alert("You must include at least one type of character: lowercase, uppercase, numeric or special. let's start over.");
     generatePassword();
   }
-  return "test-result";
+
+  // reset the character bucket for another round.
+  characterBucket = [''];
+
+  // return password
+  return password;
 }
 
 // Get references to the #generate element
