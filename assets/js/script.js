@@ -21,39 +21,80 @@ var getPasswordLength = function() {
 }
 
 // Prompt for Lower Case
-var getIncludeLowerCase = function() {
-  var input = confirm("Question 2 of 5: Do you want to include lower case characters? Click OK for Yes or Cancel for No.");
+var includeLowerCase = function() {
+  var input = confirm("Question 2 of 5: Do you want to include lowercase characters? Click OK for Yes or Cancel for No.");
   passwordCriteria.includeLowerCase = input;
-  console.log("Include Lower Case: " + passwordCriteria.includeLowerCase);
+  console.log("Include Lowercase: " + passwordCriteria.includeLowerCase);
 }
 
 // Prompt for Upper Case
-var getIncludeUpperCase = function() {
-  var input = confirm("Question 3 of 5: Do you want to include upper case characters? Click OK for Yes or Cancel for No.");
+var includeUpperCase = function() {
+  var input = confirm("Question 3 of 5: Do you want to include uppercase characters? Click OK for Yes or Cancel for No.");
   passwordCriteria.includeUpperCase = input;
-  console.log("Include Upper Case: " + passwordCriteria.includeUpperCase);
+  console.log("Include Uppercase: " + passwordCriteria.includeUpperCase);
 }
 
-// Prompt for Numeric
-var getIncludeNumbers = function() {
-  var input = confirm("Question 4 of 5: Do you want to include numbers? Click OK for Yes or Cancel for No.");
+// Prompt for Numeric Characters
+var includeNumbers = function() {
+  var input = confirm("Question 4 of 5: Do you want to include numeric characters? Click OK for Yes or Cancel for No.");
   passwordCriteria.includeNumbers = input;
-  console.log("Include Numbers: " + passwordCriteria.includeNumbers);
+  console.log("Include Numeric Characters: " + passwordCriteria.includeNumbers);
 }
 
 // Prompt for Special Characters
-var getIncludeSpecialCharacters = function() {
+var includeSpecialCharacters = function() {
   var input = confirm("Question 5 of 5: Do you want to include special characters? Click OK for Yes or Cancel for No.");
   passwordCriteria.includeSpecialCharacters = input;
   console.log("Include Special Characters: " + passwordCriteria.includeSpecialCharacters);
 }
 
+// Validate at lease one character type selected
+var characterSelectionIsValid = function() {
+  
+  // set the result to false to start
+  var result = false;
+  
+  // Check if at least one of the 4 character type selections is true.
+  // if so the result will be set to true.
+  // if none are true then the result will remain false.
+  
+  // Check lower case
+  if (passwordCriteria.includeLowerCase) {
+    result = true;
+  }
+
+  // Check upper case
+  if (passwordCriteria.includeUpperCase) {
+    result = true;
+  }
+
+  // Check numerice
+  if (passwordCriteria.includeNumbers) {
+    result = true;
+  }
+
+  // Check special characters
+  if (passwordCriteria.includeSpecialCharacters) {
+    result = true;
+  }
+
+  // return the result
+  return result;
+}
+
 var generatePassword = function() {
   getPasswordLength();
-  getIncludeLowerCase();
-  getIncludeUpperCase();
-  getIncludeNumbers();
-  getIncludeSpecialCharacters();
+  includeLowerCase();
+  includeUpperCase();
+  includeNumbers();
+  includeSpecialCharacters();
+  if (characterSelectionIsValid()) {
+    console.log("The character selection is valid!");
+  } else {
+    console.log("The character selection is NOT valid!");
+    alert("You must include at least one type of character: lowercase, uppercase, numeric or special. let's start over.");
+    generatePassword();
+  }
   return "test-result";
 }
 
