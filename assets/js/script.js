@@ -129,7 +129,7 @@ var buildCharacterBucket = function() {
     }
   }
   
-  console.log("Character Bucket: " + characterBucket);
+  //console.log("Character Bucket: " + characterBucket);
 }
 
 // random number function
@@ -138,17 +138,32 @@ var getRandomNumber = function(min, max) {
   return value;
 }
 
+var passwordBucketIsValid = function() {
+  var result = true;
+  // this function checks if the password bucket contains
+  // at least one character from each character type selected
+  // by the user and returns true if so.
+  return result;
+}
+
 var buildPasswordBucket = function() {
   // remove the empty element from the array
   passwordBucket.pop();
 
+  // create the password bucket
   for (var i = 0; i < passwordCriteria.passwordLength; i++) {
     var randomNumber = getRandomNumber(0, characterBucket.length - 1);
-    console.log("Random Number from Character Bucket: " + randomNumber);
+    //console.log("Random Number from Character Bucket: " + randomNumber);
     passwordBucket.push(characterBucket[randomNumber]); // choose a character from the bucket randomly
   }
 
-  console.log("Password Bucket: " + passwordBucket);
+  // check if password bucket contains at least one character from each character type selected by the user
+  if (!passwordBucketIsValid()) {
+    passwordBucket = ['']; //reset the password bucket
+    buildPasswordBucket();
+  }
+
+  //console.log("Password Bucket: " + passwordBucket);
 }
 
 
@@ -163,12 +178,12 @@ var generatePassword = function() {
   getIncludeNumbers();
   getIncludeSpecialCharacters();
   if (characterSelectionIsValid()) {
-    console.log("The character selection is valid!");
+    console.log("The character type selection is valid!");
     buildCharacterBucket();
     buildPasswordBucket();
     password = passwordBucket.join("");
   } else {
-    console.log("The character selection is NOT valid!");
+    console.log("The character type selection is NOT valid!");
     alert("You must include at least one type of character: lowercase, uppercase, numeric or special. let's start over.");
     generatePassword();
   }
