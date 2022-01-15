@@ -1,4 +1,6 @@
-// Assignment code here
+// ************************************
+// ********** Character Sets **********
+// ************************************
 
 // character sets
 var lowerCaseCharacters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -10,6 +12,11 @@ var specialCharacters = ['!','"','#','$','%','&',"'",'(',')','*','+',',','-','.'
 var characterBucket = ['']; // this is the bucket of characters to choose the password from and depends on the criteria selected by the user.
 var passwordBucket = ['']; // this is the bucket to hold the randomly selected characters for the password.
 
+
+// ************************************
+// ******* Password Criteria **********
+// ************************************
+
 // Object to hold password criteria
 var passwordCriteria = {
   passwordLength: 8,
@@ -18,6 +25,11 @@ var passwordCriteria = {
   includeNumbers: true,
   includeSpecialCharacters: true
 }
+
+
+// ************************************
+// ************ Prompts ***************
+// ************************************
 
 // Prompt to get the Password Length
 var getPasswordLength = function() {
@@ -58,6 +70,11 @@ var getIncludeSpecialCharacters = function() {
   console.log("Include Special Characters: " + passwordCriteria.includeSpecialCharacters);
 }
 
+
+// ************************************
+// ** Validate Character Selection ****
+// ************************************
+
 // Validate at lease one character type selected
 var characterSelectionIsValid = function() {
   
@@ -91,6 +108,11 @@ var characterSelectionIsValid = function() {
   // return the result
   return result;
 }
+
+
+// ************************************
+// **** Fill Character Bucket *********
+// ************************************
 
 var buildCharacterBucket = function() {
   // remove the empty element from the array
@@ -132,6 +154,11 @@ var buildCharacterBucket = function() {
   //console.log("Character Bucket: " + characterBucket);
 }
 
+
+// ************************************
+// ***** Password Bucket Functions ****
+// ************************************
+
 // random number function
 var getRandomNumber = function(min, max) {
   var value = Math.floor(Math.random() * (max - min) + min);
@@ -143,6 +170,75 @@ var passwordBucketIsValid = function() {
   // this function checks if the password bucket contains
   // at least one character from each character type selected
   // by the user and returns true if so.
+
+  // check for lowercase characters
+  if (passwordCriteria.includeLowerCase) {
+    console.log("Check for lowercase characters.");
+    var counter = 0;
+    console.log("Counter before loop: " + counter);
+    for (var i = 0; i < lowerCaseCharacters.length; i++) {
+      if (passwordBucket.includes(lowerCaseCharacters[i])) {
+        counter++;
+      }
+    }
+    console.log("Password Bucket: " + passwordBucket);
+    console.log("Counter after loop: " + counter);
+    if (counter < 1) {
+      result = false;
+    }
+  }
+
+  // check for uppercase characters
+  if (passwordCriteria.includeUpperCase) {
+    console.log("Check for uppercase characters.");
+    var counter = 0;
+    console.log("Counter before loop: " + counter);
+    for (var i = 0; i < upperCaseCharacters.length; i++) {
+      if (passwordBucket.includes(upperCaseCharacters[i])) {
+        counter++;
+      }
+    }
+    console.log("Password Bucket: " + passwordBucket);
+    console.log("Counter after loop: " + counter);
+    if (counter < 1) {
+      result = false;
+    }
+  }
+
+  // check for numeric characters
+  if (passwordCriteria.includeNumbers) {
+    console.log("Check for numeric characters.");
+    var counter = 0;
+    console.log("Counter before loop: " + counter);
+    for (var i = 0; i < numericCharacters.length; i++) {
+      if (passwordBucket.includes(numericCharacters[i])) {
+        counter++;
+      }
+    }
+    console.log("Password Bucket: " + passwordBucket);
+    console.log("Counter after loop: " + counter);
+    if (counter < 1) {
+      result = false;
+    }
+  }
+
+  // check for special characters
+  if (passwordCriteria.includeSpecialCharacters) {
+    console.log("Check for special characters.");
+    var counter = 0;
+    console.log("Counter before loop: " + counter);
+    for (var i = 0; i < specialCharacters.length; i++) {
+      if (passwordBucket.includes(specialCharacters[i])) {
+        counter++;
+      }
+    }
+    console.log("Password Bucket: " + passwordBucket);
+    console.log("Counter after loop: " + counter);
+    if (counter < 1) {
+      result = false;
+    }
+  }
+
   return result;
 }
 
@@ -162,8 +258,6 @@ var buildPasswordBucket = function() {
     passwordBucket = ['']; //reset the password bucket
     buildPasswordBucket();
   }
-
-  //console.log("Password Bucket: " + passwordBucket);
 }
 
 
