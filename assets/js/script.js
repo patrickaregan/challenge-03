@@ -1,5 +1,6 @@
 // Assignment code here
 var characterBucket = ['']; // this is the bucket of characters to choose the password from and depends on the criteria selected by the user.
+var passwordBucket = ['']; // this is the bucket to hold the randomly selected characters for the password.
 
 // Object to hold password criteria
 var passwordCriteria = {
@@ -88,10 +89,15 @@ var buildCharacterBucket = function() {
   characterBucket.pop();
 
   // character sets
-  var lowerCaseCharacters = ['a','b','c'];
-  var upperCaseCharacters = ['A','B','C'];
-  var numericCharacters = ['0','1','2'];
-  var specialCharacters = [' ','!','"','#'];
+  var lowerCaseCharacters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+  var upperCaseCharacters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+  var numericCharacters = ['0','1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','6','7','8','9'];
+  var specialCharacters = ['!','"','#','$','%','&',"'",'(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~'];
+  console.log("lowercase character count: " + lowerCaseCharacters.length);
+  console.log("uppercase character count: " + upperCaseCharacters.length);
+  console.log("numberic character count: " + numericCharacters.length);
+  console.log("special character count: " + specialCharacters.length);
+
 
   // add lowercase characters to the bucket if that option was chosen by the user.
   if (passwordCriteria.includeLowerCase) {
@@ -124,9 +130,28 @@ var buildCharacterBucket = function() {
   console.log("Character Bucket: " + characterBucket);
 }
 
+// random number function
+var getRandomNumber = function(min, max) {
+  var value = Math.floor(Math.random() * (max - min) + min);
+  return value;
+}
+
+var buildPasswordBucket = function() {
+  // remove the empty element from the array
+  passwordBucket.pop();
+
+  for (var i = 0; i < passwordCriteria.passwordLength; i++) {
+    var randomNumber = getRandomNumber(0, characterBucket.length - 1);
+    console.log("Random Number from Character Bucket: " + randomNumber);
+    passwordBucket.push(characterBucket[randomNumber]); // choose a character from the bucket randomly
+  }
+
+  console.log("Password Bucket: " + passwordBucket);
+}
+
 var generatePassword = function() {
   // this will be returned after we generate it.
-  var password = "Under Construction";
+  var password = "Your Secure Password";
 
   // Get password criteria
   getPasswordLength();
@@ -137,14 +162,16 @@ var generatePassword = function() {
   if (characterSelectionIsValid()) {
     console.log("The character selection is valid!");
     buildCharacterBucket();
+    buildPasswordBucket();
   } else {
     console.log("The character selection is NOT valid!");
     alert("You must include at least one type of character: lowercase, uppercase, numeric or special. let's start over.");
     generatePassword();
   }
 
-  // reset the character bucket for another round.
+  // reset the character and password buckets for another round.
   characterBucket = [''];
+  passwordBucket = [''];
 
   // return password
   return password;
