@@ -6,17 +6,17 @@ pieces of information to generate a password. The first is the length of the pas
 8 and 128 characters. The second through fifth questions are whether to include lowercase,
 uppercase, numeric or special characters.
 - A complex password generator is necessary today as we do so much online and need many different
-passwords. It can be challenging to think up a password that is completely random so a generator
+passwords. It can be challenging to think up a password that is completely random so a password generator
 is helpful.
 - I learned about JavaScript in class and made use of objects and functions to complete this project.
-- I used functions to prompt for password criteria and stored all the selections in an object.
-- The functions made it easy to call the logic again if any of the requirements were not met. For example, I checked if at least one character set was selected and if not I started over and called all the prompt functions again.
-- For the password generation I created two buckets, a character bucket and a password bucket. The character bucket holds all the characters from all the character sets selected in the prompting phase. For example if the user selects lowercase and uppercase then I put all those characters in the character bucket. That made them available to be chosen randomly. Then I looped as many times as the password length the user selected and randomly picked a character from the character bucket and put it in the password bucket. This worked very well but I had to go one step further to validate that the password bucket contained at least one character from every character type the user selected.
-- To validate the password bucket I created a password validation function (passwordBucketIsValid) that looped through all the character arrays that the user selected and looked for each character in the password bucket. I stored the count in a counter and if there was at least one in each then I marked the password valid.
-- The final step in the password generation was to use th join function to turn the passwword array into a string so I could display it to the user.
+- I used functions to prompt for password criteria (getPasswordLength, getIncludeLowerCase, getIncludeUpperCase, getIncludeNumbers and getIncludeSpecialCharacters) and stored all the selections in an object (passwordCriteria).
+- The functions made it easy to call the logic again if any of the requirements were not met. For example, I checked if at least one character type was selected (characterSelectionIsValid) and if not I started the prompting over again by calling the generatePassword function again.
+- For the password generation I created two arrays, a character bucket and a password bucket. The character bucket holds all the characters from all the character types selected in the prompting phase. For example if the user selected lowercase and uppercase then I put both those character sets in the character bucket. That made them all available to be chosen randomly. Then I created a loop for as many times as the password length the user selected and randomly picked a character from the character bucket and put it in the password bucket. This worked very well but I had to go one step further to validate that the password bucket contained at least one character from every character type the user selected.
+- To validate the password bucket I created a password validation function (passwordBucketIsValid) that looped through all the character arrays that the user selected and looked for each character in the password bucket. I stored the count in a counter and if there was at least one for each type selected then I marked the password valid.
+- The final step in the password generation was to use the join function of an array to turn the passwword array into a string so I could display it to the user.
 
 ## Screenshot
-![Patrick Regan Portfolio](assets/images/screenshot.png)
+![Patrick Regan's Password Generator](assets/images/screenshot.png)
 
 
 ## Link
