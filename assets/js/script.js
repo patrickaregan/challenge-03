@@ -280,17 +280,15 @@ var generatePassword = function() {
     buildCharacterBucket();
     buildPasswordBucket();
     password = passwordBucket.join("");
+    // reset the character and password buckets for another round.
+    characterBucket = [''];
+    passwordBucket = [''];
   } else {
     console.log("The character type selection is NOT valid!");
     alert("You must include at least one type of character: lowercase, uppercase, numeric or special. let's start over.");
-    generatePassword();
+    document.location.reload();
   }
-
-  // reset the character and password buckets for another round.
-  characterBucket = [''];
-  passwordBucket = [''];
-
-  // return password
+  
   return password;
 }
 
